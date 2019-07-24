@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -43,7 +44,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -56,7 +57,21 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
+        //TODO: ask what to do when we have list strings, we may need a function to populate one by one
+        //TextView alsoKnownAsTextView = (TextView) findViewById(R.id.also_known_tv);
+        //alsoKnownAsTextView.setText(sanwich.getAlsoKnownAs());
+
+        TextView placeOfOriginTextView = (TextView) findViewById(R.id.origin_tv);
+        placeOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
+
+        TextView descriptionTextView = (TextView) findViewById(R.id.description_tv);
+        descriptionTextView.setText(sandwich.getDescription());
+
+        //TODO: ask what to do when we have list strings, we may need a function to populate one by one
+        //TextView ingredientsTextView = (TextView) findViewById(R.id.ingredients_tv);
+       // ingredientsTextView.setText(sandwich.getIngredients());
+
 
     }
 }
