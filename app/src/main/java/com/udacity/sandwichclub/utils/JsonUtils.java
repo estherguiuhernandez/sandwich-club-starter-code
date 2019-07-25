@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,6 +21,9 @@ public class JsonUtils {
 
     public static Sandwich parseSandwichJson(String json) {
 
+        List<String> alsoKnownAs = new ArrayList<>();
+        List<String> ingredients = new ArrayList<>();
+
         // If the JSON string is empty or null, then return early.
         if (TextUtils.isEmpty(json)) {
             return null;
@@ -28,13 +33,25 @@ public class JsonUtils {
             JSONObject sandwichJson = new JSONObject(json);
             JSONObject nameJson = sandwichJson.getJSONObject("name");
             String mainName = nameJson.getString("mainName");
-            JSONArray alsoKnownAs = nameJson.getJSONArray("alsoKnownAs");
+            JSONArray alsoKnownAsJson = nameJson.getJSONArray("alsoKnownAs");
             String placeOfOrigin = sandwichJson.getString("placeOfOrigin");
             String description = sandwichJson.getString("description");
             String image = sandwichJson.getString("image");
-            JSONArray ingredients = sandwichJson.getJSONArray("ingredients");
+            JSONArray ingredientsJson = sandwichJson.getJSONArray("ingredients");
 
-            return new Sandwich(mainName, Collections.<String>emptyList(), placeOfOrigin, description, image, Collections.<String> emptyList());
+
+            if (alsoKnownAsJson != null) {
+                for (int i=0; i<alsoKnownAsJson.length(); i++){
+                    alsoKnownAs.add(alsoKnownAsJson.get(i).toString());
+                }
+            }
+
+            if (ingredientsJson != null) {
+                for (int i=0; i<ingredientsJson.length(); i++){
+                    ingredients.add(ingredientsJson.get(i).toString());
+                }
+            }
+            return new Sandwich(mainName, alsoKnownAs, placeOfOrigin, description, image, ingredients);
 
         }catch(JSONException e){
             Log.e(LOG_TAG, "Problem parsing the sandwitch results", e);

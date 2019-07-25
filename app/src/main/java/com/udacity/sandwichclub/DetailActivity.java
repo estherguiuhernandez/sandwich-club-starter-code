@@ -57,10 +57,17 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * This method updates the View with the selected sandwich
+     *
+     * @param sandwich sandwich object containing all the information about the selected sandwich
+     */
     private void populateUI(Sandwich sandwich) {
-        //TODO: ask what to do when we have list strings, we may need a function to populate one by one
-        //TextView alsoKnownAsTextView = (TextView) findViewById(R.id.also_known_tv);
-        //alsoKnownAsTextView.setText(sanwich.getAlsoKnownAs());
+
+        TextView alsoKnownAsTextView = (TextView) findViewById(R.id.also_known_tv);
+        for (String alsoknown : sandwich.getAlsoKnownAs()) {
+            alsoKnownAsTextView.append(alsoknown + "\n");
+        }
 
         TextView placeOfOriginTextView = (TextView) findViewById(R.id.origin_tv);
         placeOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
@@ -68,10 +75,10 @@ public class DetailActivity extends AppCompatActivity {
         TextView descriptionTextView = (TextView) findViewById(R.id.description_tv);
         descriptionTextView.setText(sandwich.getDescription());
 
-        //TODO: ask what to do when we have list strings, we may need a function to populate one by one
-        //TextView ingredientsTextView = (TextView) findViewById(R.id.ingredients_tv);
-       // ingredientsTextView.setText(sandwich.getIngredients());
-
+        TextView ingredientsTextView = (TextView) findViewById(R.id.ingredients_tv);
+        for (String ingredients : sandwich.getIngredients()) {
+            ingredientsTextView.append(ingredients + "\n");
+        }
 
     }
 }
