@@ -9,14 +9,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class JsonUtils {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = JsonUtils.class.getSimpleName();
 
     public static Sandwich parseSandwichJson(String json) {
@@ -29,7 +29,7 @@ public class JsonUtils {
             return null;
         }
 
-        try{
+        try {
             JSONObject sandwichJson = new JSONObject(json);
             JSONObject nameJson = sandwichJson.getJSONObject("name");
             String mainName = nameJson.getString("mainName");
@@ -41,19 +41,19 @@ public class JsonUtils {
 
 
             if (alsoKnownAsJson != null) {
-                for (int i=0; i<alsoKnownAsJson.length(); i++){
+                for (int i = 0; i < alsoKnownAsJson.length(); i++) {
                     alsoKnownAs.add(alsoKnownAsJson.get(i).toString());
                 }
             }
 
             if (ingredientsJson != null) {
-                for (int i=0; i<ingredientsJson.length(); i++){
+                for (int i = 0; i < ingredientsJson.length(); i++) {
                     ingredients.add(ingredientsJson.get(i).toString());
                 }
             }
             return new Sandwich(mainName, alsoKnownAs, placeOfOrigin, description, image, ingredients);
 
-        }catch(JSONException e){
+        } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the sandwitch results", e);
         }
         return null;
